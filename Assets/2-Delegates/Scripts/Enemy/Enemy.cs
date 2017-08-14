@@ -53,7 +53,14 @@ namespace Delegates
 
         public void SetTarget(Transform target)
         {
-            this.target = target;
+            if (target.tag != "Player")
+            {
+                this.target = null;
+            }
+            else
+            {
+                this.target = target;
+            }
         }
 
         public bool IsCloseToTarget(float distance)
