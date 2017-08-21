@@ -8,8 +8,6 @@ namespace AbstractClasses
     {
         public float accerleration = 25f;
         public float hyperSpeed = 150f;
-        [Tooltip("Deceleration as a percentage of the current velocity.")]
-        [Range(0 , 1)] public float deceleration = 0.1f;
         public float rotationSpeed = 5f;
 
         private Rigidbody2D rigid;
@@ -24,7 +22,6 @@ namespace AbstractClasses
         void Update()
         {
             Accelerate();
-            Decelerate();
             Rotate();
         }
 
@@ -33,7 +30,7 @@ namespace AbstractClasses
             float inputV = Input.GetAxisRaw("Vertical");
             Vector3 force = transform.right * inputV;
             // Check if left shift is pressed
-            if(Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift))
             {
                 //Go hyperspeed!
                 force *= hyperSpeed;
@@ -47,11 +44,6 @@ namespace AbstractClasses
             rigid.AddForce(force);
         }
 
-        void Decelerate()
-        {
-            // velocity = =velocity * deceleration
-            rigid.velocity += -rigid.velocity * deceleration;
-        }
 
         void Rotate()
         {

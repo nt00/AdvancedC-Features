@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 //Preprocessor Directives
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,6 +10,7 @@ namespace AbstractClasses
 {
     public class Shotgun : Weapon
     {
+        public int shells = 10;
         public float shootAngle = 45f;
         public float shootRadius = 5f;
 
@@ -27,6 +27,20 @@ namespace AbstractClasses
         public override void Fire()
         {
             // Loop through and spawn bullets
+            for (int i = 0; i < shells; i++)
+            {
+                //Spawn a new bullet called 'b'
+                Bullet b = SpawnBullet(transform.position, transform.rotation);
+                //Calculate rnadom angle using shootAngle(Random.Range)
+                float randomAngle = Random.Range(-shootAngle, shootAngle);
+                //GetDir using the randomAngle
+                Vector3 direction = GetDir(randomAngle);
+                //Set b's aliveDistance to shootRadis
+                b.aliveDistance = shootRadius;
+                //Call b.Fire() and pass direction
+                b.Fire(direction);
+            }
+
                 //Fire each bullet in the range amd direction of player
         }
 
