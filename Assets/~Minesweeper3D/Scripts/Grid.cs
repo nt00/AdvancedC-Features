@@ -12,6 +12,7 @@ namespace Minesweeper3D
         public int height = 10;
         public int depth = 10;
         public float spacing = 1.2f; // How much spacing between each Block
+        public bool isMine;
 
         // Multi-Dimesional Array storing the blocks (in this case 3D)
         private Block[,,] blocks;
@@ -66,6 +67,62 @@ namespace Minesweeper3D
                     }
                 }
             }
+        }
+
+        // Count adjacent mines at element
+        public int GetAdjacentMineCountAt(Block b)
+        {
+            int count = 0;
+            // Loop through all elements and have each axis go between -1 to 1
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    for (int z = -1; z <= -1; z++)
+                    {
+                        // Calculate adjacent element's index
+                        int desiredX = b.x + x;
+
+                        int desiredY = b.y + y;
+
+                        int desiredZ = b.z + z;
+
+                        // IF desiredX is within range of blocks array
+                        if(desiredX <= blocks.Length)
+                        {
+                            //If the element at index is a mine
+                            if(b == isMine)
+                            {
+                                // Increment count by 1
+                                count++;
+                            }
+                        }
+
+                        // IF desiredY is within range of blocks array
+                        if (desiredY <= blocks.Length)
+                        {
+                            //If the element at index is a mine
+                            if (b == isMine)
+                            {
+                                // Increment count by 1
+                                count++;
+                            }
+                        }
+                        // IF desiredZ is within range of blocks array
+                        if (desiredZ <= blocks.Length)
+                        {
+                            //If the element at index is a mine
+                            if (b == isMine)
+                            {
+                                // Increment count by 1
+                                count++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return count;
         }
     }
 }

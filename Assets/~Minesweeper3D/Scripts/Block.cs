@@ -17,6 +17,7 @@ namespace Minesweeper3D
         public Transform mine; // Reference to the mine
 
         private Renderer rend; // Reference to the renderer
+        public Camera cam; // Reference to the camera
 
         void Awake()
         {
@@ -32,6 +33,13 @@ namespace Minesweeper3D
             isMine = Random.value < .05f;
         }
 
+        void Update()
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                DeactivateBlock();
+            }
+        }
         void UpdateText(int adjacentMines)
         {
             // Are there adjacent mines?
@@ -68,6 +76,21 @@ namespace Minesweeper3D
             }
             // Deactivates the block
             gameObject.SetActive(false);
+        }
+
+        void DeactivateBlock()
+        {
+            RaycastHit hit;
+
+            // Getting ray position
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+            // If the raycast hits a block
+            if(Physics.Raycast(ray, out hit))
+            {
+                // Deactivate the block
+                gameObject.SetActive(false);
+            }
         }
     }
 }
