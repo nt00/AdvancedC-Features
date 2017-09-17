@@ -30,12 +30,14 @@ public class CameraOrbitWithZoom : MonoBehaviour
         if(isHiding)
         {
             // Hide the cursor
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
             //Unhide the cursor
-            
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -74,17 +76,14 @@ public class CameraOrbitWithZoom : MonoBehaviour
     {
         if(Input.GetMouseButton(1))
         {
-            // Hide the cursor
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            HideCursor(true);
             // Get Input
             GetInput();
         }
         else
         {
             // Unhide the cursor
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            HideCursor(false);
         }
         // Movement
         Movement();
